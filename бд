@@ -1,0 +1,70 @@
+-- Таблица пользователей
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    telegram_id BIGINT UNIQUE NOT NULL,
+    username VARCHAR(100)
+);
+
+-- Таблица общих слов (для всех пользователей)
+CREATE TABLE words (
+    id SERIAL PRIMARY KEY,
+    english_word VARCHAR(100) NOT NULL,
+    russian_word VARCHAR(100) NOT NULL
+);
+
+-- Таблица слов конкретного пользователя
+-- (персональные добавления и удаления)
+CREATE TABLE user_words (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    word_id INTEGER REFERENCES words(id) ON DELETE CASCADE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    UNIQUE (user_id, word_id)
+);
+
+
+INSERT INTO words (english_word, russian_word) VALUES
+('Peace', 'Мир'),
+('We', 'Мы'),
+('She', 'Она'),
+('He', 'Он'),
+('It', 'Это'),
+('Dream', 'Мечта'),
+('Green', 'Зелёный'),
+('White', 'Белый'),
+('Hello', 'Привет'),
+('Car', 'Машина'),
+('Magnificently', 'Великолепно'),
+('House', 'Дом'),
+('Job', 'Работа'),
+('Fear', 'Страх'),
+('Student', 'Студент'),
+('School', 'Школа'),
+('Bread', 'Хлеб'),
+('Monday', 'Понедельник'),
+('Tuesday', 'Вторник'),
+('Wednesday', 'Среда'),
+('Thursday', 'Четверг'),
+('Friday', 'Пятница'),
+('Saturday', 'Суббота'),
+('Sunday', 'Воскресенье'),
+('January', 'Январь'),
+('February', 'Февраль'),
+('March', 'Март'),
+('Tea', 'Чай'),
+('Coffee', 'Кофе'),
+('Milk', 'Молоко'),
+('Egg', 'Яйцо'),
+('Meat', 'Мясо'),
+('Fish', 'Рыба'),
+('Fruits', 'Фрукты'),
+('Vegetables', 'Овощи'),
+('One', 'Один'),
+('Two', 'Два'),
+('Three', 'Три'),
+('Please', 'Пожалуйста'),
+('Bye', 'Пока'),
+('Sorry', 'Извините'),
+('Programming', 'Программирование'),
+('Table', 'Стол'),
+('Chair', 'Стул');
